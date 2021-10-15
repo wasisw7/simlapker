@@ -2,24 +2,38 @@
 
 class M_lapker extends CI_Model {
 	protected $_table = 'lapker';
+	protected $_table2 = 'detail_lapker';
 
 	public function lihat(){
-
+		$username = $this->session->login['nama'];
 		$this->db->from($this->_table);
+		$this->db->where("username",$username);
 		$this->db->order_by("tanggal", "desc");
 		$query = $this->db->get(); 
 		return $query->result();
 
 	}
 
-	public function lihat_2(){
+	public function edit_id($id='',$idrincian=''){
+			$query = $this->db->get_where($this->_table2, ['idrincian' => $idrincian]);
+			return $query->row();
+		}
+	public function ubah($data, $idrincian){
+			$query = $this->db->set($data);
+			$query = $this->db->where(['idrincian' => $idrincian]);
+			$query = $this->db->update($this->_table2);
+			return $query;
+		}
+
+	public function lihat_2($username=''){
 		$bulan = $this->uri->segment(3);
+
 		$query =$this->db->query("SELECT * FROM ( SELECT ''AS nom,''AS nor,DATE_FORMAT (a.tanggal,'%e %b %Y') AS t1,a.tanggal AS t2,a.hari,a.ket,''AS 					  lokasi,''AS app,''AS uraian,''AS status_kerja,''AS kerja FROM kalender a  WHERE MONTH(tanggal)='$bulan' 
 								AND YEAR(tanggal)='2021' 
 								UNION ALL 
 								SELECT b.id AS nom,'' nor,''AS t1,c.tanggal AS t2,''AS hari,''AS ket,b.tempat,b.app,b.uraian,b.status_kerja,'' kerja 
 								FROM lapker c JOIN detail_lapker b ON c.id_lapker=b.id 
-								WHERE MONTH(c.tanggal)='$bulan' AND YEAR(c.tanggal)='2021' AND c.username='Wasis Wibowo, S.T'
+								WHERE MONTH(c.tanggal)='$bulan' and c.username='$username' AND YEAR(c.tanggal)='2021'
 								)a GROUP BY t2,nom,uraian ORDER BY t2,uraian");
 		
 		return $query->result();
@@ -83,7 +97,7 @@ function  tanggal_format_indonesia($tgl){
         break;
     }
     }
-	public function header(){
+	public function header($username=''){
 		$bulan = $this->uri->segment(3);
 
 		$lastmoth  = '2021-'.$bulan.'-'.'01';
@@ -91,7 +105,7 @@ function  tanggal_format_indonesia($tgl){
         $str       = $this->tanggal_format_indonesia($lastyear);
 
 		$nmbulan= $this->getBulan($bulan);
-		$query =$this->db->query("SELECT *, '$nmbulan' as nbulan,'$str' as str from pengguna where kode='PGN17'");
+		$query =$this->db->query("SELECT *, '$nmbulan' as nbulan,'$str' as str from pengguna where nama='$username'");
 		return $query->result();
 
 	}

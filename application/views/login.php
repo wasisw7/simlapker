@@ -14,17 +14,25 @@
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link href="<?= base_url('sb-admin') ?>/css/sb-admin-2.min.css" rel="stylesheet">
 	<link href="<?= base_url('sb-admin') ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+	<style>
+		body {
+		  background-image: url('<?= base_url() ?>sb-admin/img/bg.jpg');
+		}
+		</style>
 </head>
 
-<body class="bg-gradient-primary">
+<body>
 
 	<div class="container">
+<br>
+			<br>
+			<br>
 
+			<br>
 		<!-- Outer Row -->
 		<div class="row justify-content-center">
 
-			<div class="col-sm-12 col-md-9">
+			<div class="col-sm-12 col-md-6">
 
 				<div class="card o-hidden border-0 shadow-lg my-5">
 					<div class="card-body p-0">
@@ -34,6 +42,7 @@
 							</div>
 						</div>
 						<div class="row">
+							
 							<div class="col-lg-12">
 								<div class="p-5">
 									<div class="text-center">
@@ -52,7 +61,7 @@
 											</button>
 										</div>
 									<?php endif ?>
-										<h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+										<h1 class="h4 text-gray-900 mb-4">SIMLAPKER</h1>
 									</div>
 									<form class="user" method="POST" action="<?= base_url('login/proses_login') ?>">
 										<div class="form-group">
@@ -64,7 +73,7 @@
 										<div class="form-group">
 											<select name="role" id="role" class="form-control" required>
 												<option value="">Masuk Sebagai</option>
-												<option value="petugas">Petugas</option>
+												<option value="petugas">Pegawai</option>
 												<option value="admin">Admin</option>
 											</select>
 										</div>
@@ -74,6 +83,7 @@
 									</form>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>

@@ -21,7 +21,7 @@
 					</div>
 					<div class="float-right">
 						<a href="<?= base_url('lapker/export') ?>" class="btn btn-danger btn-sm"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-						<a href="<?= base_url('lapker/tambah') ?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+						<a href="<?= base_url('lapker/tambah') ?>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
 					</div>
 				</div>
 				<hr>
@@ -49,7 +49,8 @@
 									<tr>
 										<td width="10%">No</td>
 										<td>Tanggal</td>
-										<td width="10%">Aksi</td>
+										<td>Nama</td>
+										<td width="15%" >Aksi</td>
 									</tr>
 								</thead>
 								<tbody>
@@ -57,10 +58,10 @@
 										<tr>
 											<td><?= $no++ ?></td>
 											<td><?= $lapker->tanggal ?></td>
-											<!-- <td><?= $lapker->tgl_terima ?> <?= $lapker->jam_terima ?></td> -->
-											<td>
-												<a href="<?= base_url('lapker/detail/' . $lapker->id_lapker) ?>" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
-												<a href="<?= base_url('lapker/detail/' . $lapker->id_lapker) ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+											<td><?= $this->session->login['nama']; ?></td>
+											<td align="center">
+												<a href="<?= base_url('lapker/detail/' . $lapker->id_lapker) ?>" class="btn btn-dark btn-sm"><i class="fa fa-eye"></i></a>
+												<a href="<?= base_url('lapker/detail_edit/' . $lapker->id_lapker) ?>" class="btn btn-warning text-dark btn-sm"><i class="fa fa-edit"></i></a>
 												<a onclick="return confirm('apakah anda yakin?')" href="<?= base_url('lapker/hapus/' . $lapker->id_lapker) ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>

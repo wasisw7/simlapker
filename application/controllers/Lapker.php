@@ -64,6 +64,23 @@ class Lapker extends CI_Controller{
 		$this->load->view('lapker/detail', $this->data);
 	}
 
+	public function detail_edit($id){
+		$this->data['title'] = 'Edit Lapker';
+		$this->data['lapker'] = $this->m_lapker->lihat_no_terima($id);
+		$this->data['all_detail_lapker'] = $this->m_detail_lapker->lihat_no_terima($id);
+		$this->data['no'] = 1;
+
+		$this->load->view('lapker/detail_edit', $this->data);
+	}
+
+	public function ubah($id='',$idrincian=''){
+		
+		$this->data['title'] = 'Ubah Lapker';
+		$this->data['barang'] = $this->m_lapker->edit_id($id,$idrincian);
+
+		$this->load->view('lapker/ubah', $this->data);
+	}
+
 	public function hapus($id){
 		if($this->m_lapker->hapus($id) && $this->m_detail_lapker->hapus($id)){
 			$this->session->set_flashdata('success', 'Invoice Penerimaan <strong>Berhasil</strong> Dihapus!');
@@ -77,6 +94,24 @@ class Lapker extends CI_Controller{
 	public function get_all_barang(){
 		$data = $this->m_barang->lihat_nama_barang($_POST['nama_barang']);
 		echo json_encode($data);
+	}
+
+	public function proses_ubah($id='',$idrincian=''){
+		
+		$data = [
+			'app' 			=> $this->input->post('nama_aplikasi'),
+			'tempat' 		=> $this->input->post('tempat'),
+			'uraian' 		=> $this->input->post('uraian'),
+			'status_kerja'	=> $this->input->post('status_kerja'),
+		];
+
+		if($this->m_lapker->ubah($data, $idrincian)){
+			$this->session->set_flashdata('success', 'Rincian lapker <strong>Berhasil</strong> Diubah!');
+			redirect('lapker/detail_edit/'.$id);
+		} else {
+			$this->session->set_flashdata('error', 'Rincian lapker <strong>Gagal</strong> Diubah!');
+			redirect('lapker/detail_edit/'.$id);
+		}
 	}
 
 	public function keranjang_barang(){
@@ -102,11 +137,11 @@ class Lapker extends CI_Controller{
 	// }
 
 public function export(){
-
+		$username = $this->session->login['nama'];
 		ini_set('max_execution_time', -1);
 		ini_set('memory_limit', -1);
-		$this->data['all_lapker'] = $this->m_lapker->lihat_2();
-		$this->data['all_header'] = $this->m_lapker->header();
+		$this->data['all_lapker'] = $this->m_lapker->lihat_2($username);
+		$this->data['all_header'] = $this->m_lapker->header($username);
 		$this->data['title'] = 'Laporan Kerja Harian';		
 		$this->pdflib->setFileName('Lapker.pdf');
     	$this->pdflib->setPaper('A4', 'Landscape');
