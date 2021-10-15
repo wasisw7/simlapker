@@ -25,15 +25,17 @@ class M_lapker extends CI_Model {
 			return $query;
 		}
 
-	public function lihat_2($username='', $bulan=''){
-		// $bulan = $this->uri->segment(3);
+	public function lihat_2(){
+		$username = $this->uri->segment(3);
+		$bulan = $this->uri->segment(4);
 
 		$query =$this->db->query("SELECT * FROM ( SELECT ''AS nom,''AS nor,DATE_FORMAT (a.tanggal,'%e %b %Y') AS t1,a.tanggal AS t2,a.hari,a.ket,''AS 					  lokasi,''AS app,''AS uraian,''AS status_kerja,''AS kerja FROM kalender a  WHERE MONTH(tanggal)='$bulan' 
 								AND YEAR(tanggal)='2021' 
 								UNION ALL 
 								SELECT b.id AS nom,'' nor,''AS t1,c.tanggal AS t2,''AS hari,''AS ket,b.tempat,b.app,b.uraian,b.status_kerja,'' kerja 
-								FROM lapker c JOIN detail_lapker b ON c.id_lapker=b.id 
-								WHERE MONTH(c.tanggal)='$bulan' and c.username='$username' AND YEAR(c.tanggal)='2021'
+								FROM lapker c INNER JOIN detail_lapker b ON c.id_lapker=b.id 
+								INNER JOIN petugas d ON c.username=d.nama
+								WHERE MONTH(c.tanggal)='$bulan' and d.username='$username' AND YEAR(c.tanggal)='2021'
 								)a GROUP BY t2,nom,uraian ORDER BY t2,uraian");
 		
 		return $query->result();
@@ -97,15 +99,16 @@ function  tanggal_format_indonesia($tgl){
         break;
     }
     }
-	public function header($username='', $bulan=''){
-		// $bulan = $this->uri->segment(3);
+	public function header(){
+		$username = $this->uri->segment(3);
+		$bulan = $this->uri->segment(4);
 
 		$lastmoth  = '2021-'.$bulan.'-'.'01';
         $lastyear  = date('Y-m-t',strtotime($lastmoth)); 
         $str       = $this->tanggal_format_indonesia($lastyear);
 
 		$nmbulan= $this->getBulan($bulan);
-		$query =$this->db->query("SELECT *, '$nmbulan' as nbulan,'$str' as str from pengguna where nama='$username'");
+		$query =$this->db->query("SELECT *, '$nmbulan' as nbulan,'$str' as str from pengguna where username='$username'");
 		return $query->result();
 
 	}
