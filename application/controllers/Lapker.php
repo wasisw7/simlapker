@@ -137,17 +137,25 @@ class Lapker extends CI_Controller{
 	// }
 
 public function export(){
+		$bulan 	  = $this->input->post('bulan');
 		$username = $this->session->login['nama'];
 		ini_set('max_execution_time', -1);
 		ini_set('memory_limit', -1);
-		$this->data['all_lapker'] = $this->m_lapker->lihat_2($username);
-		$this->data['all_header'] = $this->m_lapker->header($username);
+		$this->data['all_lapker'] = $this->m_lapker->lihat_2($username,$bulan);
+		$this->data['all_header'] = $this->m_lapker->header($username,$bulan);
 		$this->data['title'] = 'Laporan Kerja Harian';		
 		$this->pdflib->setFileName('Lapker.pdf');
     	$this->pdflib->setPaper('A4', 'Landscape');
     	$this->pdflib->loadView('lapker/report', $this->data, true);
     	
     }
+
+
+
+public function cetak(){
+		$this->data['title'] = 'Cetak Lapker';
+		$this->load->view('lapker/cetak', $this->data);
+	}
 
 	public function export_detail($id){
 		$dompdf = new Dompdf();

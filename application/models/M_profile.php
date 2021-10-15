@@ -1,6 +1,6 @@
 <?php
 
-class M_toko extends CI_Model {
+class M_profile extends CI_Model {
 	protected $_table = 'data_toko';
 
 	public function lihat(){

@@ -25,8 +25,8 @@ class M_lapker extends CI_Model {
 			return $query;
 		}
 
-	public function lihat_2($username=''){
-		$bulan = $this->uri->segment(3);
+	public function lihat_2($username='', $bulan=''){
+		// $bulan = $this->uri->segment(3);
 
 		$query =$this->db->query("SELECT * FROM ( SELECT ''AS nom,''AS nor,DATE_FORMAT (a.tanggal,'%e %b %Y') AS t1,a.tanggal AS t2,a.hari,a.ket,''AS 					  lokasi,''AS app,''AS uraian,''AS status_kerja,''AS kerja FROM kalender a  WHERE MONTH(tanggal)='$bulan' 
 								AND YEAR(tanggal)='2021' 
@@ -97,8 +97,8 @@ function  tanggal_format_indonesia($tgl){
         break;
     }
     }
-	public function header($username=''){
-		$bulan = $this->uri->segment(3);
+	public function header($username='', $bulan=''){
+		// $bulan = $this->uri->segment(3);
 
 		$lastmoth  = '2021-'.$bulan.'-'.'01';
         $lastyear  = date('Y-m-t',strtotime($lastmoth)); 
@@ -110,7 +110,12 @@ function  tanggal_format_indonesia($tgl){
 
 	}
 	public function status(){
-		$query = $this->db->query('SELECT username,nama, 
+
+		$bulan = date('m');
+		$tahun = date('Y');
+		$jumHari = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+		if ($jumHari=='31'){
+			$query = $this->db->query('SELECT username,nama, 
 (select COUNT(*) from lapker where DAY(tanggal)=1 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl1,
 (select COUNT(*) from lapker where DAY(tanggal)=2 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl2,
 (select COUNT(*) from lapker where DAY(tanggal)=3 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl3,
@@ -147,6 +152,116 @@ function  tanggal_format_indonesia($tgl){
 from petugas z
 order by username
 ');
+		}else if ($jumHari=='30'){
+$query = $this->db->query('SELECT username,nama, 
+(select COUNT(*) from lapker where DAY(tanggal)=1 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl1,
+(select COUNT(*) from lapker where DAY(tanggal)=2 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl2,
+(select COUNT(*) from lapker where DAY(tanggal)=3 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl3,
+(select COUNT(*) from lapker where DAY(tanggal)=4 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl4,
+(select COUNT(*) from lapker where DAY(tanggal)=5 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl5,
+(select COUNT(*) from lapker where DAY(tanggal)=6 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl6,
+(select COUNT(*) from lapker where DAY(tanggal)=7 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl7,
+(select COUNT(*) from lapker where DAY(tanggal)=8 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl8,
+(select COUNT(*) from lapker where DAY(tanggal)=9 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl9,
+(select COUNT(*) from lapker where DAY(tanggal)=10 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl10,
+(select COUNT(*) from lapker where DAY(tanggal)=11 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl11,
+(select COUNT(*) from lapker where DAY(tanggal)=12 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl12,
+(select COUNT(*) from lapker where DAY(tanggal)=13 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl13,
+(select COUNT(*) from lapker where DAY(tanggal)=14 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl14,
+(select COUNT(*) from lapker where DAY(tanggal)=15 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl15,
+(select COUNT(*) from lapker where DAY(tanggal)=16 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl16,
+(select COUNT(*) from lapker where DAY(tanggal)=17 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl17,
+(select COUNT(*) from lapker where DAY(tanggal)=18 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl18,
+(select COUNT(*) from lapker where DAY(tanggal)=19 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl19,
+(select COUNT(*) from lapker where DAY(tanggal)=20 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl20,
+(select COUNT(*) from lapker where DAY(tanggal)=21 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl21,
+(select COUNT(*) from lapker where DAY(tanggal)=22 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl22,
+(select COUNT(*) from lapker where DAY(tanggal)=23 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl23,
+(select COUNT(*) from lapker where DAY(tanggal)=24 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl24,
+(select COUNT(*) from lapker where DAY(tanggal)=25 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl25,
+(select COUNT(*) from lapker where DAY(tanggal)=26 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl26,
+(select COUNT(*) from lapker where DAY(tanggal)=27 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl27,
+(select COUNT(*) from lapker where DAY(tanggal)=28 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl28,
+(select COUNT(*) from lapker where DAY(tanggal)=29 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl29,
+(select COUNT(*) from lapker where DAY(tanggal)=30 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl30
+
+
+from petugas z
+order by username
+');
+		}else if ($jumHari=='29'){
+$query = $this->db->query('SELECT username,nama, 
+(select COUNT(*) from lapker where DAY(tanggal)=1 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl1,
+(select COUNT(*) from lapker where DAY(tanggal)=2 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl2,
+(select COUNT(*) from lapker where DAY(tanggal)=3 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl3,
+(select COUNT(*) from lapker where DAY(tanggal)=4 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl4,
+(select COUNT(*) from lapker where DAY(tanggal)=5 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl5,
+(select COUNT(*) from lapker where DAY(tanggal)=6 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl6,
+(select COUNT(*) from lapker where DAY(tanggal)=7 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl7,
+(select COUNT(*) from lapker where DAY(tanggal)=8 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl8,
+(select COUNT(*) from lapker where DAY(tanggal)=9 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl9,
+(select COUNT(*) from lapker where DAY(tanggal)=10 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl10,
+(select COUNT(*) from lapker where DAY(tanggal)=11 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl11,
+(select COUNT(*) from lapker where DAY(tanggal)=12 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl12,
+(select COUNT(*) from lapker where DAY(tanggal)=13 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl13,
+(select COUNT(*) from lapker where DAY(tanggal)=14 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl14,
+(select COUNT(*) from lapker where DAY(tanggal)=15 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl15,
+(select COUNT(*) from lapker where DAY(tanggal)=16 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl16,
+(select COUNT(*) from lapker where DAY(tanggal)=17 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl17,
+(select COUNT(*) from lapker where DAY(tanggal)=18 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl18,
+(select COUNT(*) from lapker where DAY(tanggal)=19 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl19,
+(select COUNT(*) from lapker where DAY(tanggal)=20 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl20,
+(select COUNT(*) from lapker where DAY(tanggal)=21 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl21,
+(select COUNT(*) from lapker where DAY(tanggal)=22 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl22,
+(select COUNT(*) from lapker where DAY(tanggal)=23 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl23,
+(select COUNT(*) from lapker where DAY(tanggal)=24 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl24,
+(select COUNT(*) from lapker where DAY(tanggal)=25 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl25,
+(select COUNT(*) from lapker where DAY(tanggal)=26 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl26,
+(select COUNT(*) from lapker where DAY(tanggal)=27 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl27,
+(select COUNT(*) from lapker where DAY(tanggal)=28 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl28,
+(select COUNT(*) from lapker where DAY(tanggal)=29 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl29
+
+
+from petugas z
+order by username
+');
+		}else{
+$query = $this->db->query('SELECT username,nama, 
+(select COUNT(*) from lapker where DAY(tanggal)=1 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl1,
+(select COUNT(*) from lapker where DAY(tanggal)=2 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl2,
+(select COUNT(*) from lapker where DAY(tanggal)=3 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl3,
+(select COUNT(*) from lapker where DAY(tanggal)=4 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl4,
+(select COUNT(*) from lapker where DAY(tanggal)=5 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl5,
+(select COUNT(*) from lapker where DAY(tanggal)=6 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl6,
+(select COUNT(*) from lapker where DAY(tanggal)=7 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl7,
+(select COUNT(*) from lapker where DAY(tanggal)=8 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl8,
+(select COUNT(*) from lapker where DAY(tanggal)=9 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl9,
+(select COUNT(*) from lapker where DAY(tanggal)=10 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl10,
+(select COUNT(*) from lapker where DAY(tanggal)=11 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl11,
+(select COUNT(*) from lapker where DAY(tanggal)=12 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl12,
+(select COUNT(*) from lapker where DAY(tanggal)=13 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl13,
+(select COUNT(*) from lapker where DAY(tanggal)=14 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl14,
+(select COUNT(*) from lapker where DAY(tanggal)=15 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl15,
+(select COUNT(*) from lapker where DAY(tanggal)=16 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl16,
+(select COUNT(*) from lapker where DAY(tanggal)=17 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl17,
+(select COUNT(*) from lapker where DAY(tanggal)=18 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl18,
+(select COUNT(*) from lapker where DAY(tanggal)=19 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl19,
+(select COUNT(*) from lapker where DAY(tanggal)=20 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl20,
+(select COUNT(*) from lapker where DAY(tanggal)=21 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl21,
+(select COUNT(*) from lapker where DAY(tanggal)=22 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl22,
+(select COUNT(*) from lapker where DAY(tanggal)=23 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl23,
+(select COUNT(*) from lapker where DAY(tanggal)=24 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl24,
+(select COUNT(*) from lapker where DAY(tanggal)=25 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl25,
+(select COUNT(*) from lapker where DAY(tanggal)=26 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl26,
+(select COUNT(*) from lapker where DAY(tanggal)=27 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl27,
+(select COUNT(*) from lapker where DAY(tanggal)=28 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl28
+
+
+from petugas z
+order by username
+');
+		}
+		
 		return $query->result(); 
 
 	}

@@ -64,11 +64,11 @@
 				<li class="nav-item <?= $aktif == 'pengguna' ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url('pengguna') ?>">
 						<i class="fas fa-fw fa-users"></i>
-						<span>Manajemen Pengguna</span></a>
+						<span>Manajemen Admin</span></a>
 				</li>
 
-				<li class="nav-item <?= $aktif == 'toko' ? 'active' : '' ?>">
-					<a class="nav-link" href="<?= base_url('toko') ?>">
+				<li class="nav-item <?= $aktif == 'profile' ? 'active' : '' ?>">
+					<a class="nav-link" href="<?= base_url('profile') ?>">
 						<i class="fas fa-fw fa-building"></i>
 						<span>Profil</span></a>
 				</li>

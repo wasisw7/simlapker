@@ -154,7 +154,7 @@
                         </tr>
                         <tr>
                             <td align="center" width="50%">Kepala Kantor</td>
-                            <td align="center"></td>
+                            <td align="center" width="50%">Pegawai</td>
                         </tr>
                     </table>
                     <?php endforeach ?>

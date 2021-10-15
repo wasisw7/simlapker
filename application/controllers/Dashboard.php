@@ -12,21 +12,28 @@ class Dashboard extends CI_Controller{
 		$this->load->model('M_pengeluaran', 'm_pengeluaran');
 		$this->load->model('M_penerimaan', 'm_penerimaan');
 		$this->load->model('M_pengguna', 'm_pengguna');
-		$this->load->model('M_toko', 'm_toko');
+		$this->load->model('M_profile', 'm_profile');
 		$this->load->model('M_lapker', 'm_lapker');
 	}
 
 	public function index(){
-		$this->data['title'] = 'Halaman Dashboard';
-		$this->data['jumlah_barang'] = $this->m_barang->jumlah();
-		$this->data['jumlah_customer'] = $this->m_customer->jumlah();
-		$this->data['jumlah_supplier'] = $this->m_supplier->jumlah();
-		$this->data['jumlah_petugas'] = $this->m_petugas->jumlah();
-		$this->data['jumlah_pengeluaran'] = $this->m_pengeluaran->jumlah();
-		$this->data['jumlah_penerimaan'] = $this->m_penerimaan->jumlah();
-		$this->data['jumlah_pengguna'] = $this->m_pengguna->jumlah();
-		$this->data['toko'] = $this->m_toko->lihat();
-		$this->data['all_status'] = $this->m_lapker->status();
-		$this->load->view('dashboard', $this->data);
+
+		if ($this->session->login['role'] == 'petugas'){
+			$this->data['title'] = 'Halaman Dashboard';
+			$this->data['all_status'] = $this->m_lapker->status();
+			$this->load->view('dashboard2', $this->data);
+		}else{
+			$this->data['title'] 			= 'Halaman Dashboard';
+			$this->data['jumlah_barang'] 	= $this->m_barang->jumlah();
+			$this->data['jumlah_customer'] 	= $this->m_customer->jumlah();
+			$this->data['jumlah_petugas'] 	= $this->m_petugas->jumlah();
+			$this->data['jumlah_admin'] 	= $this->m_pengguna->jumlah();
+			$this->data['profile'] 			= $this->m_profile->lihat();
+			$this->data['all_status'] 		= $this->m_lapker->status();
+			$this->load->view('dashboard', $this->data);
+		}
+
+
+		
 	}
 }

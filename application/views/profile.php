@@ -44,22 +44,22 @@
 						<div class="card shadow">
 							<div class="card-header"><strong>Isi Form Dibawah Ini!</strong></div>
 							<div class="card-body">
-								<form action="<?= base_url('toko/proses_ubah') ?>" id="form-tambah" method="POST">
+								<form action="<?= base_url('profile/proses_ubah') ?>" id="form-tambah" method="POST">
 									<div class="form-group">
 										<label for="nama_toko"><strong>Nama Aplikasi : </strong></label>
-										<input type="text" name="nama_toko" id="nama_toko" value="<?= $toko->nama_toko ?>" placeholder="Masukan Nama Toko" class="form-control" readonly>
+										<input type="text" name="nama_toko" id="nama_toko" value="<?= $profile->nama_toko ?>" placeholder="Masukan Nama Toko" class="form-control" readonly>
 									</div>
 									<div class="form-group">
 										<label for="nama_toko"><strong>Nama Pemilik : </strong></label>
-										<input type="text" name="nama_pemilik" id="nama_pemilik" value="<?= $toko->nama_pemilik ?>" placeholder="Masukan Nama Pemilik" class="form-control" readonly>
+										<input type="text" name="nama_pemilik" id="nama_pemilik" value="<?= $profile->nama_pemilik ?>" placeholder="Masukan Nama Pemilik" class="form-control" readonly>
 									</div>
 									<div class="form-group">
 										<label for="nama_toko"><strong>No Telepon : </strong></label>
-										<input type="number" name="no_telepon" id="no_telepon" value="<?= $toko->no_telepon ?>" placeholder="Masukan No Telepon" class="form-control" readonly>
+										<input type="number" name="no_telepon" id="no_telepon" value="<?= $profile->no_telepon ?>" placeholder="Masukan No Telepon" class="form-control" readonly>
 									</div>
 									<div class="form-group">
 										<label for="alamat"><strong>Alamat</strong></label>
-										<textarea readonly name="alamat" id="alamat" class="form-control" placeholder="Masukan Alamat" style="resize: none;"><?= $toko->alamat ?></textarea>
+										<textarea readonly name="alamat" id="alamat" class="form-control" placeholder="Masukan Alamat" style="resize: none;"><?= $profile->alamat ?></textarea>
 									</div>
 									<hr>
 									<div class="form-group">
