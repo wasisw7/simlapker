@@ -27,11 +27,12 @@
 				<div class="row">
 					<div class="col">
 					<div class="card">
+						<form action="<?= base_url('lapker/proses_tambah') ?>" id="form-tambah" method="POST">
 						<div class="card-header bg-success text-white">
 							Input Data Lapker
 						</div>
 						<div class="card-body">
-							<form action="<?= base_url('lapker/proses_tambah') ?>" id="form-tambah" method="POST">
+							
 								<div class="form-row">
 										<div class="col-md-6">
 											<div class="form-group">
@@ -84,7 +85,7 @@
 											</div>
 										</div>		
 								</div>
-							</form>
+							
 						</div>
 						<div class="card-footer">
 							<div class="keranjang">
@@ -114,6 +115,7 @@
 								</table>
 							</div>
 						</div>
+						</form>
 					</div>
 				</div>
 				</div>

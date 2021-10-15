@@ -11,6 +11,90 @@ class M_lapker extends CI_Model {
 		return $query->result();
 
 	}
+
+	public function lihat_2(){
+		$bulan = $this->uri->segment(3);
+		$query =$this->db->query("SELECT * FROM ( SELECT ''AS nom,''AS nor,DATE_FORMAT (a.tanggal,'%e %b %Y') AS t1,a.tanggal AS t2,a.hari,a.ket,''AS 					  lokasi,''AS app,''AS uraian,''AS status_kerja,''AS kerja FROM kalender a  WHERE MONTH(tanggal)='$bulan' 
+								AND YEAR(tanggal)='2021' 
+								UNION ALL 
+								SELECT b.id AS nom,'' nor,''AS t1,c.tanggal AS t2,''AS hari,''AS ket,b.tempat,b.app,b.uraian,b.status_kerja,'' kerja 
+								FROM lapker c JOIN detail_lapker b ON c.id_lapker=b.id 
+								WHERE MONTH(c.tanggal)='$bulan' AND YEAR(c.tanggal)='2021' AND c.username='Wasis Wibowo, S.T'
+								)a GROUP BY t2,nom,uraian ORDER BY t2,uraian");
+		
+		return $query->result();
+
+	}
+function  tanggal_format_indonesia($tgl){
+            
+        $tanggal  = explode('-',$tgl); 
+        $bulan  = $this-> getBulan($tanggal[1]);
+        $tahun  =  $tanggal[0];
+        return  $tanggal[2].' '.$bulan.' '.$tahun;
+
+    }
+    
+    function  tanggal_ind($tgl){
+            
+        $tanggal  = explode('-',$tgl); 
+        $bulan  = $tanggal[1];
+        $tahun  =  $tanggal[0];
+        return  $tanggal[2].'-'.$bulan.'-'.$tahun;
+
+    }
+        
+    function  getBulan($bln){
+        switch  ($bln){
+        case  1:
+        return  "Januari";
+        break;
+        case  2:
+        return  "Februari";
+        break;
+        case  3:
+        return  "Maret";
+        break;
+        case  4:
+        return  "April";
+        break;
+        case  5:
+        return  "Mei";
+        break;
+        case  6:
+        return  "Juni";
+        break;
+        case  7:
+        return  "Juli";
+        break;
+        case  8:
+        return  "Agustus";
+        break;
+        case  9:
+        return  "September";
+        break;
+        case  10:
+        return  "Oktober";
+        break;
+        case  11:
+        return  "November";
+        break;
+        case  12:
+        return  "Desember";
+        break;
+    }
+    }
+	public function header(){
+		$bulan = $this->uri->segment(3);
+
+		$lastmoth  = '2021-'.$bulan.'-'.'01';
+        $lastyear  = date('Y-m-t',strtotime($lastmoth)); 
+        $str       = $this->tanggal_format_indonesia($lastyear);
+
+		$nmbulan= $this->getBulan($bulan);
+		$query =$this->db->query("SELECT *, '$nmbulan' as nbulan,'$str' as str from pengguna where kode='PGN17'");
+		return $query->result();
+
+	}
 	public function status(){
 		$query = $this->db->query('SELECT username,nama, 
 (select COUNT(*) from lapker where DAY(tanggal)=1 and month(tanggal)=MONTH(CURDATE())and YEAR(tanggal)=YEAR(CURDATE())and username= z.nama) as tgl1,

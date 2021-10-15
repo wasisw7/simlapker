@@ -11,6 +11,7 @@ class Lapker extends CI_Controller{
 		$this->load->model('M_supplier', 'm_supplier');
 		$this->load->model('M_lapker', 'm_lapker');
 		$this->load->model('M_detail_lapker', 'm_detail_lapker');
+		$this->load->library('pdflib');
 	}
 
 	public function index(){
@@ -82,19 +83,36 @@ class Lapker extends CI_Controller{
 		$this->load->view('lapker/keranjang');
 	}
 
-	public function export(){
-		$dompdf = new Dompdf();
-		// $this->data['perusahaan'] = $this->m_usaha->lihat();
-		$this->data['all_lapker'] = $this->m_lapker->lihat();
-		$this->data['title'] = 'Laporan Kerja Harian';
-		$this->data['no'] = 1;
+	// public function export2(){
+	// 	ini_set('max_execution_time', -1);
+	// 	ini_set('memory_limit', -1);\
 
-		$dompdf->setPaper('A4', 'Landscape');
-		$html = $this->load->view('lapker/report', $this->data, true);
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$dompdf->stream('Laporan kerja harian ' . date('d F Y'), array("Attachment" => false));
-	}
+	// 	$dompdf = new Dompdf();
+	// 	// $this->data['perusahaan'] = $this->m_usaha->lihat();
+	// 	$this->data['all_lapker'] = $this->m_lapker->lihat_2();
+	// 	$this->data['all_header'] = $this->m_lapker->header();
+	// 	$this->data['title'] = 'Laporan Data Penerimaan';
+	// 	$this->data['no'] = 1;
+
+	// 	$dompdf->setPaper('A4', 'Landscape');
+	// 	$html = $this->load->view('lapker/report', $this->data, true);
+	// 	$dompdf->load_html($html);
+	// 	$dompdf->render();
+	// 	$dompdf->stream('Laporan Data Penerimaan Tanggal ' . date('d F Y'), array("Attachment" => false));
+	// }
+
+public function export(){
+
+		ini_set('max_execution_time', -1);
+		ini_set('memory_limit', -1);
+		$this->data['all_lapker'] = $this->m_lapker->lihat_2();
+		$this->data['all_header'] = $this->m_lapker->header();
+		$this->data['title'] = 'Laporan Kerja Harian';		
+		$this->pdflib->setFileName('Lapker.pdf');
+    	$this->pdflib->setPaper('A4', 'Landscape');
+    	$this->pdflib->loadView('lapker/report', $this->data, true);
+    	
+    }
 
 	public function export_detail($id){
 		$dompdf = new Dompdf();
